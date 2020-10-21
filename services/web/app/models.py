@@ -9,7 +9,7 @@ class User(RedisObject):
         self.last = last
 
     def setitem(self):
-        payload = dict({'first':self.first,'last':self.last})
+        payload = json.load({'first':self.first,'last':self.last})
         self.client.hset(self.id, mapping=payload)
         
     def getitem(self):
