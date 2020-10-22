@@ -10,7 +10,6 @@ class User(RedisObject):
 
     def setitem(self):
         payload = {'first':self.first,'last':self.last}
-        self.client.hset(self.id, mapping=payload)
+        self.client.hmset(self.id, payload)
         
-    def getitem(self):
-        self.client.hgetall(self.id)
+    

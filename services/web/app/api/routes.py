@@ -4,6 +4,7 @@ from flask_restful import Resource
 from .. import api
 
 from ..models import User
+from ..dao import RedisObject
 
 class TodoItem(Resource):
     def get(self, id):
@@ -25,8 +26,9 @@ class NameItem(Resource):
         return {'id': id, 'first': first, 'last': last}
     
     def get(self, id):
-        user = User(id)
+        user = RedisObject(id = id)
         payload = user.getitem()
+        
         return payload
         
 api.add_resource(NameItem, '/users/<string:id>')
