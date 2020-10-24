@@ -1,4 +1,4 @@
 Flask
-redis
+redistimeseries
 gunicorn
 flask-restful

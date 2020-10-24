@@ -20,11 +20,11 @@ services:
     env_file:
       - ./.env
       
-  redis:
-    image: 'redis'
+  redistimeseries:
+    image: 'redislabs/redistimeseries'
     volumes:
-      - redis:/data
+      - redistimeseries:/data
 
 volumes:
-  redis:
+  redistimeseries:
   static_volume:

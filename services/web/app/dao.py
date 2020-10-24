@@ -1,10 +1,10 @@
-from redis import Redis
+from redistimeseries.client import Client
 import base64
 import json
 
 class RedisObject(object):
     def __init__(self, id = None):
-        self.client = Redis(host='redis', port=6379, db=0, decode_responses=True)
+        self.client = Client(host='redistimeseries', port=6379, db=0, decode_responses=True)
         if id:
             self.id = id
         else:
