@@ -10,6 +10,12 @@ client = Client(host='redistimeseries', port=6379, db=0, decode_responses=True)
 client.create('temperature')
 client.create('radiation')
 
+client.create('temp_avg')
+client.create('rad_avg')
+
+client.createrule('temperature', 'temp_avg', 'avg', 10)
+client.createrule('radiation', 'rad_avg', 'avg', 10)
+
 
 def create_app():
     app = Flask(__name__)
