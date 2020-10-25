@@ -13,8 +13,8 @@ client.create('radiation')
 client.create('temp_avg')
 client.create('rad_avg')
 
-client.createrule('temperature', 'temp_avg', 'avg', 10)
-client.createrule('radiation', 'rad_avg', 'avg', 10)
+client.createrule('temperature', 'temp_avg_min', 'avg', 60)
+client.createrule('radiation', 'rad_avg_min', 'avg', 60)
 
 
 def create_app():
