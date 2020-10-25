@@ -1,10 +1,10 @@
 from flask import request
 import json
+import time
 from flask_restful import Resource
 from .. import api
 
-from ..models import User
-from ..dao import RedisObject
+from ..models import TsData
 
 class TodoItem(Resource):
     def get(self, id):
@@ -15,23 +15,18 @@ api.add_resource(TodoItem, '/todos/<int:id>')
 
 
 
-class NameItem(Resource):
-    def put(self, id):
-        first = request.form['first']
-        last = request.form['last']
+class TimeSeries(Resource):
+    def put(self):
+        temperature = request.form['temperature']
+        radiation = request.form['radiation']
+        timestamp = request.form['timestamp']
         
-        user = User(id = id, first = first, last = last)
-        user.setitem()
+        datapoint = TsData(timestamp = timestamp, temperature = temperature, radiation = radiation)
+        datapoint.setitem()
         
-        return {'id': id, 'first': first, 'last': last}
-    
-    def get(self, id):
-        user = RedisObject(id = id)
-        payload = user.getitem()
+        return {'timestamp': timestamp, 'temperature': temperature, 'radiation': radiation}
         
-        return payload
-        
-api.add_resource(NameItem, '/users/<string:id>')
+api.add_resource(TimeSeries, '/timeseries')
         
        
         

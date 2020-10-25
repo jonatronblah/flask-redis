@@ -8,6 +8,7 @@ api = Api(api_bp)
 client = Client(host='redistimeseries', port=6379, db=0, decode_responses=True)
 
 client.create('temperature')
+client.create('radiation')
 
 
 def create_app():
