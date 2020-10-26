@@ -15,6 +15,7 @@ services:
     command: gunicorn --bind 0.0.0.0:5000 app:create_app()
     volumes:
       - static_volume:/home/app/web/app/static
+      - ./services/web:/usr/src/app
     expose:
       - 5000
     env_file:
