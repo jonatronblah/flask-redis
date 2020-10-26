@@ -26,6 +26,9 @@ class TimeSeries(Resource):
         
         return {'timestamp': timestamp, 'temperature': temperature, 'radiation': radiation}
         
+    
+        
+        
 api.add_resource(TimeSeries, '/timeseries')
         
        

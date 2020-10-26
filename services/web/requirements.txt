@@ -1,4 +1,6 @@
 Flask
+dash
+pandas
 redistimeseries
 gunicorn
 flask-restful
