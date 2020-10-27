@@ -38,9 +38,11 @@ class TimeSeries(Resource):
         templist = []
         for i in tempdata:
             templist.append({'timestamp': str(i[0]), 'temperature':str(i[1])})
-        templist = json.dumps(templist)
         
-        return templist
+        payload = {'tempdata':templist, 'raddata':radlist}
+        payload = json.dumps(payload)
+        
+        return payload
         
     
         

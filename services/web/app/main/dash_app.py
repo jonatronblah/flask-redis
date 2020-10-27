@@ -4,7 +4,9 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.express as px
 import pandas as pd
-
+import requests
+import json
+from redistimeseries.client import Client
 
 
 
@@ -19,10 +21,10 @@ def create_dashboard(server):
         external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',
         ]  
     )
+    
+    
 
-    df = pd.DataFrame({"x": [1, 2, 3], "SF": [4, 1, 2], "Montreal": [2, 4, 5]})
-
-    fig = px.bar(df, x="x", y=["SF", "Montreal"], barmode="group")
+    fig = px.line()
 
 
     
@@ -41,7 +43,7 @@ def create_dashboard(server):
         html.Button('Submit', id='submit-val', n_clicks=0)
     ])
     
-    #init_callbacks(dash_app)
+    init_callbacks(dash_app)
    
     return dash_app.server
     
@@ -54,7 +56,27 @@ def init_callbacks(dash_app):
     [Input('submit-val', 'n_clicks')]
     )
     def update_graph(n_clicks):
-        df = pd.DataFrame({"x": [1, 2, 3], "San Fran": [4, 1, 2], "Montreal": [2, 4, 5]})
+        client = Client(host='redistimeseries', port=6379, db=0, decode_responses=True)
+        raddata = client.range('rad_avg_min', 0, -1)
+        tempdata = client.range('temp_avg_min', 0, -1)
+        
+        radlist = []
+        for i in raddata:
+            radlist.append({'timestamp': str(i[0]), 'radiation':str(i[1])})
+        
+        templist = []
+        for i in tempdata:
+            templist.append({'timestamp': str(i[0]), 'temperature':str(i[1])})
+        
+        r = {'tempdata':templist, 'raddata':radlist}
+        
+        df_t = pd.DataFrame(r['tempdata'])
+        
+        df_r = pd.DataFrame(r['raddata'])
+        
+        df = df_t.merge(df_r)
+        
+        df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
 
-        fig = px.bar(df, x="x", y=["San Fran", "Montreal"], barmode="group")
+        fig = px.line(df, x = 'timestamp', y = ['temperature', 'radiation'])
         return fig

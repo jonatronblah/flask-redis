@@ -4,3 +4,4 @@ pandas
 redistimeseries
 gunicorn
 flask-restful
+requests

@@ -1,11 +1,11 @@
 from flask import Flask, Blueprint
 from flask_restful import Api
+from redistimeseries.client import Client
+import random
+import time
 
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
-
-
-
 
 def create_app():
     app = Flask(__name__)

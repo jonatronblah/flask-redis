@@ -20,14 +20,14 @@ def create_db():
 
     client.createrule('temperature', 'temp_avg_min', 'avg', 60)
     client.createrule('radiation', 'rad_avg_min', 'avg', 60)
-
+'''
     t = int(time.time())
 
     for i in range(1000):
         client.add('temperature', t, random.randint(1,100))
         client.add('radiation', t, random.randint(1,100))
         t += 1
-
+'''
 
 if __name__ == "__main__":
     cli()
