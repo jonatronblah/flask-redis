@@ -1,5 +1,4 @@
-from flask import request
-import json
+from flask import request, jsonify
 import time
 from flask_restful import Resource
 from redistimeseries.client import Client
@@ -40,9 +39,9 @@ class TimeSeries(Resource):
             templist.append({'timestamp': str(i[0]), 'temperature':str(i[1])})
         
         payload = {'tempdata':templist, 'raddata':radlist}
-        payload = json.dumps(payload)
         
-        return payload
+        
+        return jsonify(payload)
         
     
         
