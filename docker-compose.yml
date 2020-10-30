@@ -9,6 +9,7 @@ services:
       - 1337:80
     depends_on:
       - web
+      - client
   web:
     build:
       context:  ./services/web
@@ -22,7 +23,7 @@ services:
       - ./.env
   client:
     build:
-      context: ./services/client
+      context: ./services/client/react-app
     expose:
       - 3000    
   redistimeseries:
