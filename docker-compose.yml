@@ -23,7 +23,9 @@ services:
       - ./.env
   client:
     build:
-      context: ./services/client/react-app
+      context: ./services/client
+    volumes:
+      - ./services/client/src:/usr/src/app/src
     expose:
       - 3000    
   redistimeseries:
