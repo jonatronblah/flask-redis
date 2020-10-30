@@ -23,9 +23,6 @@ services:
   client:
     build:
       context: ./services/client
-    volumes:
-      - './frontend/app:/usr/src/app'
-      - 'usr/src/app/node_modules'   
     expose:
       - 3000    
   redistimeseries:
