@@ -1,10 +1,14 @@
 from flask import request, jsonify
 import time
 from flask_restful import Resource
+
 from redistimeseries.client import Client
 from .. import api
 
 from ..models import TsData
+
+ 
+
 
 class TodoItem(Resource):
     def get(self, id):
@@ -49,5 +53,5 @@ class TimeSeries(Resource):
 api.add_resource(TimeSeries, '/timeseries')
         
        
-        
+       
         

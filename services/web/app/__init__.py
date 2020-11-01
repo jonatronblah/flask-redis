@@ -3,13 +3,19 @@ from flask_restful import Api
 from redistimeseries.client import Client
 import random
 import time
+from flask_cors import CORS
 
 api_bp = Blueprint('api', __name__)
+
 api = Api(api_bp)
+
+cors = CORS()
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object("app.config.Config")
+    
+    
     
     from .main import main as main_blueprint
     from .api import api as api_blueprint
@@ -18,9 +24,11 @@ def create_app():
     app.register_blueprint(api_blueprint)
     app.register_blueprint(api_bp)
     
+    
+    
     from .main.dash_app import create_dashboard
     app = create_dashboard(app)
-    
+    cors.init_app(app)
     
     return app
 
