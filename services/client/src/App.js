@@ -6,7 +6,7 @@ function App() {
   const [gotData, setData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:1337/timeseries').then(res => res.json()).then(data => {
+    fetch('/timeseries').then(res => res.json()).then(data => {
       setData(data);
     });
   }, []);
